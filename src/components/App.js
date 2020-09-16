@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from './ui/Theme';
-import Header from './ui/Header';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import theme from './ui/Theme';
+import Header from './ui/Header';
+import Footer from './ui/Footer';
+
 function App() {
+  // to maintain the Header's tabs selected state
+  const [value, setValue] = useState(0);
+
+  // for keeping track of last selected menu item
+  const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header />
+        <Header
+          value={value}
+          setValue={setValue}
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+        />
         <Switch>
-          <Route exact path='/' component={() => <div>Home</div>} />
+          <Route
+            exact
+            path='/'
+            component={() => <div style={{ height: '100vh' }}>Home</div>}
+          />
           <Route path='/services' component={() => <div>Services</div>} />
           <Route
             path='/customsoftware'
@@ -23,6 +39,12 @@ function App() {
           <Route path='/contact' component={() => <div>contact</div>} />
           <Route path='/estimate' component={() => <div>estimate</div>} />
         </Switch>
+        <Footer
+          value={value}
+          setValue={setValue}
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+        />
       </BrowserRouter>
     </ThemeProvider>
   );

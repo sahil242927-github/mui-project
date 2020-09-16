@@ -108,12 +108,8 @@ export default (props) => {
   const theme = useTheme(); // default theme
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+  // for Drawer to open and close
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const [value, setValue] = useState(0);
-
-  // for keeping track of last selected menu
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   // this is the state to store whichevent component we have clicked on and where we want
   // the Menu to be rendered
@@ -139,7 +135,7 @@ export default (props) => {
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
     setOpenMenu(false);
-    setSelectedIndex(i);
+    props.setSelectedIndex(i);
   };
 
   const menuOptions = [
@@ -183,10 +179,13 @@ export default (props) => {
     [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
-          if (value !== route.activeIndex) {
-            setValue(route.activeIndex);
-            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
-              setSelectedIndex(route.activeIndex);
+          if (props.value !== route.activeIndex) {
+            props.setValue(route.activeIndex);
+            if (
+              route.selectedIndex &&
+              route.selectedIndex !== props.selectedIndex
+            ) {
+              props.setSelectedIndex(route.activeIndex);
             }
           }
           break;
@@ -194,16 +193,16 @@ export default (props) => {
           break;
       }
     });
-  }, [value, menuOptions, routes, selectedIndex]);
+  }, [props.value, menuOptions, routes, props.selectedIndex, props]);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    props.setValue(newValue);
   };
 
   const tabs = (
     <React.Fragment>
       <Tabs
-        value={value}
+        value={props.value}
         onChange={handleChange}
         className={classes.tabContainer}
         indicatorColor='primary'
@@ -227,7 +226,7 @@ export default (props) => {
         className={classes.button}
         component={Link}
         to='/estimate'
-        onClick={() => setValue(undefined)}
+        onClick={() => props.setValue(undefined)}
       >
         Free Estimate
       </Button>
@@ -247,11 +246,11 @@ export default (props) => {
             key={`${option}${i}`}
             onClick={(event) => {
               handleMenuItemClick(event, i);
-              setValue(1);
+              props.setValue(1);
               handleClose();
             }}
             // used selected prop to make the clicked menu item selected
-            selected={i === selectedIndex && value === 1}
+            selected={i === props.selectedIndex && props.value === 1}
             component={Link}
             to={option.link}
             classes={{ root: classes.menuItem }}
@@ -281,13 +280,13 @@ export default (props) => {
               key={`${route}${route.activeIndex}`}
               onClick={() => {
                 setOpenDrawer(false);
-                setValue(route.activeIndex);
+                props.setValue(route.activeIndex);
               }}
               divider
               button
               component={Link}
               to={route.link}
-              selected={value === route.activeIndex}
+              selected={props.value === route.activeIndex}
               classes={{ selected: classes.drawerItemSelected }}
             >
               <ListItemText className={classes.drawerItem} disableTypography>
@@ -298,7 +297,7 @@ export default (props) => {
           <ListItem
             onClick={() => {
               setOpenDrawer(false);
-              setValue(5);
+              props.setValue(5);
             }}
             divider
             button
@@ -308,7 +307,7 @@ export default (props) => {
               root: classes.drawerItemEstimate,
               selected: classes.drawerItemSelected,
             }}
-            selected={value === 5}
+            selected={props.value === 5}
           >
             <ListItemText className={classes.drawerItem} disableTypography>
               Free Estimate
@@ -334,7 +333,7 @@ export default (props) => {
             component={Link}
             to='/'
             className={classes.logoContainer}
-            onClick={() => setValue(0)}
+            onClick={() => props.setValue(0)}
             disableRipple
           >
             <img alt='company logo' src={logo} className={classes.logo} />
