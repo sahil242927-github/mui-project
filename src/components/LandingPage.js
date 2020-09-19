@@ -4,12 +4,13 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 
 // this is a Lottie JSON file
 import animationData from '../animations/33187-rabbit-in-a-hat';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core';
 import ButtonArrow from './ui/ButtonArrow';
 import CustomSoftwareIcon from '@material-ui/icons/Bookmarks';
 import MobileAppIcon from '@material-ui/icons/ImportantDevices';
 import WebsiteIcon from '@material-ui/icons/Web';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import revolutionBg from '../assets/revolutionBg.jpg';
 
 const useStyle = makeStyles((theme) => ({
   estimateButton: {
@@ -77,6 +78,34 @@ const useStyle = makeStyles((theme) => ({
       marginTop: '4rem',
     },
     marginTop: '7rem',
+  },
+
+  // Revolution CSS Styles
+  revolutionBackground: {
+    backgroundImage: `linear-gradient(
+      to right bottom,
+      rgba(11, 114, 185, 0.5) 0%,
+      ${theme.palette.common.blue} 70%
+    ), url(${revolutionBg})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '100%',
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      height: '60%',
+    },
+  },
+  revolutionCard: {
+    position: 'absolute',
+    boxShadow: theme.shadows[10],
+    borderRadius: 15,
+    padding: '10rem',
+    [theme.breakpoints.down('sm')]: {
+      padding: '4rem 0',
+      borderRadius: 0,
+      width: '100%',
+    },
   },
 }));
 
@@ -246,6 +275,47 @@ export default () => {
               color='primary'
             />
           </Grid>
+        </Grid>
+      </Grid>
+
+      {/* Revolution Block Starts Here */}
+      <Grid item style={{ marginTop: matchesSM ? '5rem' : 0 }}>
+        <Grid
+          container
+          style={{ height: '20rem' }}
+          justify='center'
+          alignItems='center'
+        >
+          <Card className={classes.revolutionCard}>
+            <CardContent>
+              <Grid
+                container
+                direction='column'
+                style={{ textAlign: 'center' }}
+              >
+                <Grid item>
+                  <Typography variant='h3' gutterBottom>
+                    The Revolution
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant='subtitle1'>
+                    Visionary Insights Coupled with cutting-edge technology is a
+                    recipe for revolution.
+                  </Typography>
+                  <Button variant='outlined' className={classes.learnButton}>
+                    <span style={{ marginRight: 10 }}>Learn More</span>
+                    <ButtonArrow
+                      width={10}
+                      height={10}
+                      fill={theme.palette.common.blue}
+                    />
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <div className={classes.revolutionBackground} />
         </Grid>
       </Grid>
     </Grid>
