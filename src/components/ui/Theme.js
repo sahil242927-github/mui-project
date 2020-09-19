@@ -62,6 +62,11 @@ export default createMuiTheme({
       fontWeight: 300,
       fontSize: '1.25rem',
     },
+    subtitle2: {
+      color: "white",
+      fontWeight: 300,
+      fontSize: '1.25rem',
+    },
     learnButton: {
       borderColor: arcBlue,
       fontFamily: 'Roboto',
@@ -73,3 +78,4 @@ export default createMuiTheme({
     },
   },
 });
+
