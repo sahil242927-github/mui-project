@@ -25,6 +25,7 @@ const useStyle = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.light,
     },
+    marginRight: '1rem',
   },
   buttonContainer: {
     marginTop: '1.5rem',
@@ -400,7 +401,6 @@ export default (props) => {
               textAlign: matchesXS ? 'center' : 'inherit',
             }} // inherit : as it was earlier
             direction={matchesXS ? 'column' : 'row'}
-            spacing={matchesXS ? 10 : 0}
           >
             <Grid
               sm
@@ -437,6 +437,7 @@ export default (props) => {
               style={{
                 marginRight: matchesXS ? 0 : matchesSM ? '2em' : '5em',
                 textAlign: matchesXS ? 'center' : 'right',
+                marginTop: matchesXS ? '4rem' : 'inherit',
               }}
             >
               <Grid container direction='column'>

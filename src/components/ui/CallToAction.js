@@ -53,6 +53,7 @@ export default (props) => {
   const classes = useStyle();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
   //
 
   return (
@@ -77,7 +78,13 @@ export default (props) => {
               Simple Software. <br />
               Revolutionary Result
             </Typography>
-            <Typography variant='subtitle2' style={{ fontSize: '1.5rem' }}>
+            <Typography
+              variant='subtitle2'
+              style={{
+                fontSize: '1.5rem',
+                textAlign: matchesXS ? 'center' : 'inherit',
+              }}
+            >
               Take the advantage of the 21st Century.
             </Typography>
             <Grid item container justify={matchesSM ? 'center' : 'inherit'}>

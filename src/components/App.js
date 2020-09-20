@@ -6,6 +6,7 @@ import theme from './ui/Theme';
 import Header from './ui/Header';
 import Footer from './ui/Footer';
 import LandingPage from './LandingPage';
+import Services from './Services';
 
 function App() {
   // to maintain the Header's tabs selected state
@@ -34,7 +35,16 @@ function App() {
               />
             )}
           />
-          <Route path='/services' component={() => <div>Services</div>} />
+          <Route
+            path='/services'
+            render={(props) => (
+              <Services
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
           <Route
             path='/customsoftware'
             component={() => <div>Custom Software</div>}
