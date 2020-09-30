@@ -57,15 +57,26 @@ export default createMuiTheme({
       fontSize: '1.75rem',
       color: arcBlue,
     },
+    h5: {
+      fontFamily: 'Raleway',
+      fontWeight: 700,
+      fontSize: '1.2rem',
+      color: arcBlue,
+    },
     subtitle1: {
       color: arcGrey,
       fontWeight: 300,
       fontSize: '1.25rem',
     },
     subtitle2: {
-      color: "white",
+      color: 'white',
       fontWeight: 300,
       fontSize: '1.25rem',
+    },
+    body1: {
+      fontSize: '1.25rem',
+      fontWeight: 300,
+      color: arcGrey,
     },
     learnButton: {
       borderColor: arcBlue,
@@ -77,5 +88,30 @@ export default createMuiTheme({
       color: arcBlue,
     },
   },
-});
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: arcBlue,
+        fontSize: '1rem',
+      },
+    },
+    MuiInput: {
+      root: {
+        // actual text color when we type in the text field
+        color: arcGrey,
+        fontWeight: 300,
+      },
 
+      // underline of input when we hover it
+      underline: {
+        '&:before': {
+          borderBottom: `2px  solid ${arcBlue}`,
+        },
+        // for hover and focus style of input text field
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: `2px  solid ${arcBlue}`,
+        },
+      },
+    },
+  },
+});

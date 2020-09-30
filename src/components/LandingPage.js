@@ -4,7 +4,7 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 
 // this is a Lottie JSON file
-import animationData from '../animations/33187-rabbit-in-a-hat';
+import animationData from '../animations/rabbit-in-a-hat';
 import { Grid, Button, Typography, Card, CardContent } from '@material-ui/core';
 import ButtonArrow from './ui/ButtonArrow';
 import CustomSoftwareIcon from '@material-ui/icons/Bookmarks';

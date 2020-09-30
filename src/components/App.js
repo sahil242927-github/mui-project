@@ -7,6 +7,9 @@ import Header from './ui/Header';
 import Footer from './ui/Footer';
 import LandingPage from './LandingPage';
 import Services from './Services';
+import CustomSoftware from './CustomSoftware';
+import AboutUs from './ui/AboutUs';
+import ContactUs from './ui/ContactUs';
 
 function App() {
   // to maintain the Header's tabs selected state
@@ -47,13 +50,38 @@ function App() {
           />
           <Route
             path='/customsoftware'
-            component={() => <div>Custom Software</div>}
+            render={(props) => (
+              <CustomSoftware
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
           />
+
           <Route path='/mobileapps' component={() => <div>mobileapps</div>} />
           <Route exact path='/websites' component={() => <div>websites</div>} />
           <Route path='/revolution' component={() => <div>revolution</div>} />
-          <Route path='/about' component={() => <div>about</div>} />
-          <Route path='/contact' component={() => <div>contact</div>} />
+          <Route
+            path='/about'
+            render={(props) => (
+              <AboutUs
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
+          <Route
+            path='/contact'
+            render={(props) => (
+              <ContactUs
+                {...props}
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            )}
+          />
           <Route path='/estimate' component={() => <div>estimate</div>} />
         </Switch>
         <Footer

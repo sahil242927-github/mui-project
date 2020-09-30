@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
     fontWeight: 400,
+    color: 'white',
   },
   drawerIconContainer: {
     marginLeft: 'auto',
