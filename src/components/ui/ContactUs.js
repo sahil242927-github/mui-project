@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/styles';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
   Grid,
@@ -8,6 +9,8 @@ import {
   TextField,
   Dialog,
   DialogContent,
+  CircularProgress,
+  Snackbar,
 } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -54,16 +57,18 @@ export default (props) => {
   const classes = useStyle();
   const theme = useTheme();
   const [name, setName] = useState('');
-
   const [phone, setPhone] = useState('');
   const [phoneHelper, setPhoneHelper] = useState('');
-
   const [email, setEmail] = useState('');
   const [emailHelper, setEmailHelper] = useState('');
-
   const [message, setMessage] = useState('');
-
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    message: '',
+    backgroundColor: '',
+  });
 
   const formStatus = () => {
     return (
@@ -107,9 +112,39 @@ export default (props) => {
     }
   };
 
+  const onConfirm = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setOpen(false);
+      setName('');
+      setPhone('');
+      setEmail('');
+      setMessage('');
+      setAlert({
+        open: true,
+        message: 'Message sent Successfully',
+        backgroundColor: '#4BB543',
+      });
+
+      return { data: 'Mail sent successfully!' };
+    }, 2000);
+  };
+
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
   const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const sendButtonContent = (
+    <React.Fragment>
+      Send Message
+      <img
+        src={PaperPlane}
+        alt='paperplane'
+        style={{ width: 15, marginLeft: '.5rem' }}
+      />
+    </React.Fragment>
+  );
 
   return (
     <Grid container direction='row'>
@@ -246,6 +281,14 @@ export default (props) => {
           </Grid>
         </Grid>
       </Grid>
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
       <Dialog
         open={open}
         fullScreen={matchesXS}
@@ -284,7 +327,7 @@ export default (props) => {
                 <TextField
                   label='Name'
                   fullWidth
-                  helperText
+                  helperText=''
                   id='name'
                   value={name}
                   onChange={(event) => setName(event.target.value)}
@@ -342,19 +385,14 @@ export default (props) => {
             <Grid item>
               <Button
                 disabled={formStatus()}
-                variant='container'
+                variant='contained'
                 className={classes.sendButton}
                 style={{
                   backgroundColor: theme.palette.common.orange,
                 }}
-                onClick={() => setOpen(true)}
+                onClick={onConfirm}
               >
-                Send Message
-                <img
-                  src={PaperPlane}
-                  alt='paperplane'
-                  style={{ width: 15, marginLeft: '.5rem' }}
-                />
+                {loading ? <CircularProgress size={20} /> : sendButtonContent}
               </Button>
             </Grid>
           </Grid>
